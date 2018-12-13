@@ -1,0 +1,25 @@
+#For a given natural number n find the largest natural number written with the same digits.
+def initializeFrequenceOfDigits(frequenceOfDigits):
+    for i in range(0,10): 
+        frequenceOfDigits.append(0)
+
+frequenceOfDigits = [] 
+
+def frequenceOfDigitsForGivenNumber(givenNumber):
+    initializeFrequenceOfDigits(frequenceOfDigits)
+    while givenNumber>0 : 
+        frequenceOfDigits[int(givenNumber%10)]+=1
+        givenNumber = int(givenNumber/10)
+        
+def greatestNumberWithSameDigits(givenNumber):
+    frequenceOfDigitsForGivenNumber(givenNumber)
+    number = 0
+    i = 9
+    while i>=0:
+        for j in range (0,frequenceOfDigits[i]):
+            number = number * 10 + i 
+        i-=1
+    return number
+
+a = int(input("Tell me the number:"))
+print ("The requested number is:",greatestNumberWithSameDigits(a))

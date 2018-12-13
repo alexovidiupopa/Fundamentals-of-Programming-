@@ -1,0 +1,8 @@
+#Determine the age of a person, in number of days.
+#We know that a normal year has 365 calendar days, and every 4 years, a year has 366 calendar days.
+#Therefore, we can say that for n the age in years, the age in days would be equal to n*365 + [n/4], where 
+#"[]" denotes the mathematical function floor. 
+
+import math
+age = int(input("Your age in years is:"))
+print("And your age in days is(roughly):",age*365+math.floor(age/4), "days")

@@ -1,0 +1,12 @@
+#The palindrome of a number is the number obtained by reversing the order of digits. E.g. palindrome (237) = 732). 
+#For a given natural number n, determine its palindrome.
+
+def calculatePalindrome(givenNumber):
+    inverse = 0
+    while givenNumber>0:
+        inverse = inverse * 10 + int(givenNumber%10)
+        givenNumber = int(givenNumber/10)
+    return inverse 
+
+a = int(input("Tell me the number:"))
+print("The product of all the proper factors is:",calculatePalindrome(a))

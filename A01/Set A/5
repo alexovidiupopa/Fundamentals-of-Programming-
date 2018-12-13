@@ -1,0 +1,28 @@
+#Generate the largest prime number smaller than a given natural number n. If such a number does not exist, a message should be displayed.
+
+import math
+
+def isPrime(numberToCheck):
+    if numberToCheck < 2 or numberToCheck>2 and numberToCheck % 2 ==0 :
+        return False
+    divisor=3.0
+    while divisor<=math.sqrt(numberToCheck):
+        if numberToCheck%divisor == 0:
+            return False
+        divisor += 2.0  
+    return True
+
+def largestPrimeNumberSmallerThanGivenNumber(givenNumber): 
+    givenNumber -=1
+    while isPrime(givenNumber) == False : 
+        givenNumber-=1
+    return givenNumber 
+
+def solve():
+    number = int(input("Tell me the number:"))  
+    if number <=2: 
+        print("Such a number does not exist!")
+    else: 
+        print("The number is:",largestPrimeNumberSmallerThanGivenNumber(number))
+        
+solve()

@@ -1,0 +1,48 @@
+#Determine the n-th element of the sequence 1,2,3,2,5,2,3,7,2,3,2,5,... obtained from the sequence of natural numbers by replacing composed numbers
+# with their prime divisors, without memorizing the elements of the sequence.
+
+import math 
+
+def isPrime(numberToCheck):
+    if numberToCheck<2 or numberToCheck>2 and numberToCheck % 2 == 0 :
+        return False 
+    #divisor = 3.0 
+    for divisor in range (3,int(math.sqrt(numberToCheck))+1,2):
+        if numberToCheck%divisor == 0:
+            return False 
+    return True
+
+def nthElementOfTheSequence(givenN):
+    count = 1
+    currentSequenceNumber = 0 
+    auxiliary = 0
+    while count < givenN: 
+        currentSequenceNumber+=1
+        if not isPrime(currentSequenceNumber): 
+            if currentSequenceNumber % 2 == 0:
+                count += 1
+            if count == givenN:
+                return 2
+            auxiliary = currentSequenceNumber 
+            for divisor in range (3,int(auxiliary/2)+1,2): 
+                if auxiliary % divisor == 0:
+                    count += 1 
+                    if count == givenN: 
+                        return divisor
+                while auxiliary % divisor == 0: 
+                    auxiliary = int (auxiliary/divisor)
+        else :
+            count+=1
+        
+    return currentSequenceNumber
+    
+def solve():
+    n = int(input("Tell me the nth position: "))
+    while n<=0: 
+        n = int(input("Tell me a number greater than 0! Try again: "))
+    if n==1 : 
+        print ("The number on the nth position is 1")
+        return
+    print("The number on the nth position is ",nthElementOfTheSequence(n))
+    
+solve()

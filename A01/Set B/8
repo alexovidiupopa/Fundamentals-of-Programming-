@@ -1,0 +1,30 @@
+#Determine the twin prime numbers p1 and p2 immediately larger than the given non-null natural number n. 
+#Two prime numbers p and q are called twin if q-p = 2.
+
+import math
+
+def isPrime(numberToCheck):
+    if numberToCheck < 2 or numberToCheck>2 and numberToCheck % 2 ==0 :
+        return False
+    divisor=3.0
+    while divisor<=math.sqrt(numberToCheck):
+        if numberToCheck%divisor == 0:
+            return False
+        divisor += 2.0
+    return True
+
+def solve (givenNumber):
+    if givenNumber<=2: 
+        
+        print("The two numbers are 3 and 5")
+        return
+    if givenNumber%2 ==0 :
+        givenNumber+=1.0
+    while True:
+        if isPrime(givenNumber)==True and isPrime(givenNumber+2) == True: 
+            break
+        givenNumber+=2
+    print("The two numbers are:",givenNumber," and",givenNumber+2)
+    
+number = int(input("Tell me the number:"))
+solve(number)

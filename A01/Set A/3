@@ -1,0 +1,28 @@
+#For a given natural number n find the minimal natural number m formed with the same digits.
+def initializeFrequenceOfDigits(frequenceOfDigits):
+    for i in range(0,10): 
+        frequenceOfDigits.append(0)
+
+frequenceOfDigits = [] 
+
+def frequenceOfDigitsForGivenNumber(givenNumber):
+    initializeFrequenceOfDigits(frequenceOfDigits)
+    while givenNumber>0 : 
+        frequenceOfDigits[int(givenNumber%10)]+=1
+        givenNumber = int(givenNumber/10)
+
+def smallestNumberWithSameDigits(givenNumber):
+    frequenceOfDigitsForGivenNumber(givenNumber)
+    number = 0
+    for i in range (1,10):
+        if frequenceOfDigits[i]!=0 : 
+            frequenceOfDigits[i]-=1
+            number = number * 10 + i
+            break
+    for i in range (0,10):
+        for j in range (0,frequenceOfDigits[i]):
+            number = number * 10 + i 
+    return number
+
+a = int(input("Tell me the number:"))
+print ("The requested number is:",smallestNumberWithSameDigits(a))

@@ -1,0 +1,50 @@
+#Given the natural number n, determine the prime numbers p1 and p2 such that n = p1 + p2 (check the Goldbach hypothesis).
+#The Goldbach conjecture states that any even number can be written as a sum of two prime numbers, and 
+#this theorem has been proven up to 4 * 10^8, which means it is proven for every number of type int. 
+#For matters of efficiency, a more improved way to tackle the problem would be to use the Sieve of Eratosthenes.
+
+import math
+sieveOfEratosthenes = []
+primeNumbers = []
+def initiateSieveOfEratosthenes(upToThisNumber):
+    for i in range(1,upToThisNumber+1):
+        sieveOfEratosthenes.append(0)
+
+def initiatePrimeNumbers (upToThisNumber):
+    for i in range (2,upToThisNumber):
+        if sieveOfEratosthenes[i] == 0 : 
+            primeNumbers.append(i)
+            for j in range(i,upToThisNumber,i):
+                sieveOfEratosthenes[j]=1
+
+def isPrime(numberToCheck):
+    if numberToCheck < 2 or numberToCheck>2 and numberToCheck % 2 ==0 :
+        return False
+    divisor=3.0
+    while divisor<=math.sqrt(numberToCheck):
+        if numberToCheck%divisor == 0:
+            return False
+        divisor += 2.0
+    return True
+
+def sumOfTwoPrimes(givenNumber):
+   initiateSieveOfEratosthenes(givenNumber)
+   initiatePrimeNumbers(givenNumber)
+   numberOfPrimeNumbers = len(primeNumbers)
+   for i in range(0,int(numberOfPrimeNumbers/2)+1):
+       if isPrime(primeNumbers[i]) == True :
+           secondNumber = givenNumber - primeNumbers[i]
+           if isPrime(secondNumber) == True: 
+               return i
+
+
+def readTheNumber():
+    number = int(input("Tell me the number:"))
+    if (number % 2):
+        print("The given number must be even. Please restart!")
+    else :
+        i = sumOfTwoPrimes(number)
+        print(primeNumbers[i],"+",number-primeNumbers[i],"=",number)
+        
+readTheNumber()
+                

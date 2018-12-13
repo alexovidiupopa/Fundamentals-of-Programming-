@@ -1,0 +1,35 @@
+#The numbers n1 and n2 have the property P if their writings in basis 10 have the same digits (e.g. 2113 and 323121).
+#Determine whether two given natural numbers have the property P.
+
+def digitsInBasis10(givenNumber, digits):
+    while givenNumber>0:
+        digits[givenNumber%10] = 1
+        givenNumber = int(givenNumber/10)
+    return
+
+def initiateArrayOfDigits(digits):
+    for i in range (0,10):
+        digits.append(0)
+        
+def propertyP(number1, number2):
+    digitsOfNumber1 = []
+    initiateArrayOfDigits(digitsOfNumber1)
+    digitsOfNumber2 = []
+    initiateArrayOfDigits(digitsOfNumber2)
+    digitsInBasis10(number1, digitsOfNumber1)
+    digitsInBasis10(number2, digitsOfNumber2)
+    for i in range (0,10):
+        if digitsOfNumber1[i] != digitsOfNumber2[i]:
+            return False
+    return True
+
+def solve():
+    n1 = int(input("n1="))
+    n2 = int(input("n2="))
+    if propertyP(n1, n2) == True :
+        print("The two given numbers have the property P")
+    else:
+        print("The two given numbers don't have the property P")
+        
+solve()
+    

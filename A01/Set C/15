@@ -1,0 +1,31 @@
+#Generate the  smallest perfect number larger than a given natural number n. If  such a number 
+#does not exist, a message should be displayed. A number is perfect if it is equal to the sum of its divisors, except
+#itself. E.g. 6 is a perfect number (6=1+2+3).
+
+import math 
+
+def sumOfDivisors(givenNumber):
+    sum = 0 
+    divisor = 1 
+    while divisor<math.sqrt(givenNumber):
+        if givenNumber%divisor == 0 :
+            sum += int(givenNumber/divisor) + divisor 
+        divisor += 1 
+    if divisor * divisor == givenNumber:
+        sum += divisor 
+    return sum
+
+def smallestPerfectNumber(givenNumber):
+    givenNumber +=1 
+    while sumOfDivisors(givenNumber)-givenNumber != givenNumber:
+        givenNumber+=1
+    return givenNumber
+
+def solve():
+    number =  int(input("Tell me the number:"))
+    if number < 0 :
+        print("Incorrect input! Try a number greater than 0.")
+    else :
+        print("The number with such a property is:",smallestPerfectNumber(number))
+    
+solve()

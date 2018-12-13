@@ -1,0 +1,33 @@
+#Consider a given natural number n. Determine the product p of all the proper factors of n.
+
+import math 
+
+def isPrime(numberToCheck):
+    if numberToCheck < 2 or numberToCheck>2 and numberToCheck % 2 ==0 :
+        return False
+    divisor=3.0
+    while divisor<=math.sqrt(numberToCheck):
+        if numberToCheck%divisor == 0:
+            return False
+        divisor += 2.0
+    return True
+
+def calculateTheProduct(givenNumber):
+    product = 1
+    factor = 2
+    while factor <= int(givenNumber/2):
+        if givenNumber%factor==0:
+            product *= factor
+        factor+=1
+    return product 
+
+def solve():
+    number = int(input("Tell me the number:"))
+    if number<0: 
+        print("Incorrect input! Please try again!")
+    elif isPrime(number) == True or number==1 or number==0:
+        print("Your number is prime and has no proper factors (or is equal to 0 or 1), so its product cannot be computed.")
+    else :
+        print("The product of all the proper factors is:",calculateTheProduct(number))
+
+solve()

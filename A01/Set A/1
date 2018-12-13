@@ -1,0 +1,24 @@
+#Generate the first prime number larger than a given natural number n.
+#Because we know the number is natural, we won't have to implement any code that has to inform the user
+#that the number he gives must be greater than 0.
+
+import math
+
+def isPrime(numberToCheck):
+	if numberToCheck < 2 or numberToCheck>2 and numberToCheck % 2 ==0 :
+		return False
+	divisor=3.0
+	while divisor<=math.sqrt(numberToCheck):
+		if numberToCheck%divisor == 0:
+			return False
+		divisor += 2.0
+	return True
+
+def firstPrimeGreaterThanGivenNumber(givenNumber):
+	copyOfNumber = givenNumber  
+	while isPrime(copyOfNumber) == False : 
+		copyOfNumber+=1
+	return copyOfNumber
+
+a = int(input("Tell me the number:"))
+print("The requested number is:",firstPrimeGreaterThanGivenNumber(a))

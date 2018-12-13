@@ -1,0 +1,18 @@
+#Determine a calendar data (as year, month, day) starting from two integer numbers representing the year and the day number inside that year.
+
+
+def isLeap(year):
+    if year % 4 == 0 : 
+        return True
+    return False
+
+def solve():
+    year = int(input("Tell me the year:"))
+    dayNumber = int(input("...and the day number:"))
+    daysInAYear=365
+    if isLeap(year):
+        daysInAYear += 1
+    if dayNumber > daysInAYear or dayNumber <= 0: 
+        print("Oops, the day number is not in the current year! Please tell me a date from this year: ")
+        dayNumber = int(input())
+     

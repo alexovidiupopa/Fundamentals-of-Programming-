@@ -1,0 +1,22 @@
+#Find the smallest number m from the Fibonacci sequence, defined by f[0]=f[1]=1, f[n]=f[n-1]+f[n-2], 
+#for n>2, larger than the given natural number n. So, find k and m such that f[k]=m, m>n and f[k-1] <=n.
+
+
+def fibonacciUpToGivenNumber(givenNumber):
+    firstNumber = 1 
+    secondNumber = 1 
+    thirdNumber = 0
+    count = 1
+    while thirdNumber <= givenNumber:
+        count+=1
+        thirdNumber = firstNumber + secondNumber
+        firstNumber = secondNumber
+        secondNumber = thirdNumber
+    print("From the task, k is ",count," and m is ",thirdNumber)
+    
+
+def solve():
+    n = int(input("Please tell me the number:"))
+    fibonacciUpToGivenNumber(n)
+    
+solve()
