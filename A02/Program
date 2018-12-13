@@ -1,0 +1,213 @@
+'''GETTERS AND SETTERS '''
+
+def getReal(complexNumber):
+    return complexNumber["real"]
+
+def setReal(complexNumber,realPart):
+    complexNumber["real"] = realPart
+    
+def getImaginary(complexNumber):
+    return complexNumber["imag"]
+
+def setImaginary(complexNumber,imagPart):
+    complexNumber["imag"] = imagPart 
+
+def create_complex_number(realPart,imagPart):
+    return {"real":realPart,"imag":imagPart}
+
+def user_read_real_number():
+    while True: 
+        try: 
+            readNumber = float(input())
+            return readNumber   
+        except ValueError:
+            print("The value you are trying to input is not correct. You have to try again! ")
+        
+def add_complex_number_to_list(number,list,index):
+    list.update({index:number})
+
+def add_complex(number,list):
+    list.append(number)
+
+def user_read_complex_number(listOfNumbers,index):
+    print("Read the number, starting with its real part, and then its imaginary part.")
+    realPart = user_read_real_number()
+    imaginaryPart = user_read_real_number()
+    complexNumber = create_complex_number(realPart, imaginaryPart)
+    add_complex_number_to_list(complexNumber, listOfNumbers, index)
+    print ("Z = ",realPart," + ",imaginaryPart,"i has been added to the listOfNumbers!",sep='')
+    
+def user_print_list(listOfNumbers):
+    
+    #print(listOfNumbers)
+    if not listOfNumbers: 
+        print("There is nothing in the listOfNumbers to be printed! Please try inputting some numbers!")
+        return
+    else:
+        length = len(listOfNumbers)
+        for index in range(0,length):
+            print("Z",index,"=",getReal(listOfNumbers[index])," + ",getImaginary(listOfNumbers[index]),"i",sep='')
+    #print(listOfNumbers)
+    return
+
+def user_print_complex_number(listOfNumbers,index):
+    print("Z = ",getReal(listOfNumbers[index])," + ",getImaginary(listOfNumbers[index]),"i",sep='')
+    return
+    
+def exception():
+    print("You can't observe any sequence because the list of numbers is empty! Please enter some elements and retry.")
+    return
+
+def sequence_numbers_strictly_increasing_real_part(listOfNumbers):
+    '''
+    The "set" function for the first sequence
+    Input: "listOfNumbers"-the tuple of complex numbers already read by the user
+    Output: the function will print the required sequence, and then return. 
+    Remarks: -To solve the problem, we will use the algorithm for finding the longest sequence on the first search through the listOfNumbers
+            -If there are two sequences of the same maximum length, the first one in the listOfNumbers will be printed. 
+    Restrictions: In the listOfNumbers, the real part of the number is always on positions 0,2,4,...,n-2; and the imaginary part of the number is always on positions 1,3,..,n-1
+    Exceptions: if the listOfNumbers is empty, the function won't print anything, telling the user he/she needs to enter some numbers first.
+    '''
+    if not listOfNumbers :
+        exception()
+        return 0
+    lengthOflistOfNumbers = len(listOfNumbers)
+    sequence = []
+    maxLength = 0
+    currentLength = 1
+    startPosition = 0 
+    for i in range (1,lengthOflistOfNumbers):
+        if getReal(listOfNumbers[i])>getReal(listOfNumbers[i-1]):
+            currentLength+=1
+        else:
+            if currentLength>maxLength:
+                maxLength = currentLength
+                startPosition = i - maxLength
+            currentLength = 1 
+    if currentLength>maxLength:
+        maxLength = currentLength
+        startPosition = lengthOflistOfNumbers - maxLength
+    #sequenceIndex = 0
+    for i in range(startPosition,startPosition+maxLength):
+        add_complex(listOfNumbers[i],sequence)
+    return sequence
+
+def test_first_sequence():
+    '''
+    Assertions for the first required sequence (point 3)
+    '''
+    assert sequence_numbers_strictly_increasing_real_part({0:{"real":1,"imag":2},1:{"real":2,"imag":3},2:{"real":3,"imag":4},3:{"real":3,"imag":3}})==[{"real":1,"imag":2},{"real":2,"imag":3},{"real":3,"imag":4}]
+   # assert sequence_numbers_strictly_increasing_real_part([{"real":1,"imag":2},{"real":1,"imag":2},{"real":1,"imag":2}])==[{"real":1,"imag":2}]
+    #assert sequence_numbers_strictly_increasing_real_part(())== 0
+    return 
+
+def user_print_sequence_one(listOfNumbers):
+    sequence = sequence_numbers_strictly_increasing_real_part(listOfNumbers)
+    print("The sequence is:")
+    user_print_list(sequence)
+    
+
+def check_distinct_complex_numbers(numberOne,numberTwo):
+    '''
+    Checks whether two complex numbers are distinct, returning True if they are and False otherwise
+    '''
+    if getReal(numberOne)!= getReal(numberTwo) and getImaginary(numberOne) != getImaginary(numberTwo):
+        return True
+    return False
+ 
+def sequence_three_distinct_values(listOfNumbers):
+    '''
+    The "set" function for the second sequence
+    Input: "listOfNumbers"-the tuple of complex numbers already read by the user
+    Output: the function will return the required sequence, stored in a listOfNumbers. (see the structure below)
+    Remarks: -To solve the problem, we will use an auxiliary listOfNumbers to always remember the last three distinct numbers as the listOfNumbers progresses, while also adapting a similar algorithm to the one we use to calculate 
+            the longest sequence with a given property in one search through the listOfNumbers.
+            -If there are two sequences of the same maximum length, the first one in the listOfNumbers will be printed. 
+    Restrictions: In the listOfNumbers, the real part of the number is always on positions 0,2,4,...,n-2; and the imaginary part of the number is always on positions 1,3,..,n-1
+    Exceptions: if the listOfNumbers is empty, the function won't print anything, telling the user he/she needs to enter some numbers first.
+    '''
+    if not listOfNumbers :
+        exception()
+        return 0
+    constant_max = 9223372036854775807
+    lengthOflistOfNumbers = len(listOfNumbers)
+    three_distinct_numbers = [constant_max,constant_max,constant_max,constant_max,constant_max,constant_max]
+    sequence = []
+    maxLength = 0
+    sequenceStart = 0 
+    sequenceFinish = 0
+    for i in range (0,lengthOflistOfNumbers):
+        index = i
+        elementsInSequenceLength = 2
+        three_distinct_numbers[elementsInSequenceLength-2] = getReal(listOfNumbers[i])
+        three_distinct_numbers[elementsInSequenceLength-1] = getImaginary(listOfNumbers[i])
+        while index<lengthOflistOfNumbers:
+            ok = 0
+            for j in range (0,elementsInSequenceLength,2):
+                auxiliaryComplexNumber = create_complex_number(three_distinct_numbers[j], three_distinct_numbers[j+1])
+                if check_distinct_complex_numbers(listOfNumbers[index],auxiliaryComplexNumber)==False:
+                    ok=1
+            if ok==0:
+                elementsInSequenceLength+=2
+                if elementsInSequenceLength == 8:
+                    break
+                three_distinct_numbers[elementsInSequenceLength-2] = getReal(listOfNumbers[index])
+                three_distinct_numbers[elementsInSequenceLength-1] = getImaginary(listOfNumbers[index])
+            index += 1 
+        if maxLength<index-i:
+            maxLength = index - i 
+            sequenceStart = i
+            sequenceFinish = index 
+    #sequenceIndex = 0
+    for i in range (sequenceStart,sequenceFinish):
+        add_complex(listOfNumbers[i],sequence)
+    return sequence
+
+def test_second_sequence():
+    '''
+    Assertions for the second required sequence (point 4)
+    '''
+    assert sequence_three_distinct_values({0:{"real":1,"imag":2},1:{"real":1,"imag":2},2:{"real":2,"imag":3},3:{"real":2,"imag":3},4:{"real":3,"imag":4},5:{"real":4,"imag":5}})==[{"real":1,"imag":2},{"real":1,"imag":2},{"real":2,"imag":3},{"real":2,"imag":3},{"real":3,"imag":4}]
+    #assert sequence_three_distinct_values([]) == 0
+    #assert sequence_three_distinct_values([{"real":1,"imag":2},{"real":2,"imag":3},{"real":3,"imag":4},{"real":4,"imag":5},{"real":5,"imag":6}])==[{"real":1,"imag":2},{"real":2,"imag":3},{"real":3,"imag":4}]
+    #assert sequence_three_distinct_values([{"real":1,"imag":1},{"real":1,"imag":1}])==[{"real":1,"imag":1},{"real":1,"imag":1}]
+    
+def user_print_sequence_two(listOfNumbers):    
+    sequence = sequence_three_distinct_values(listOfNumbers)
+    print("The sequence is:")
+    user_print_list(sequence)
+def createStartList(listOfNumbers):
+    add_complex_number_to_list(create_complex_number(7.0, 10.0), listOfNumbers,0)
+    add_complex_number_to_list(create_complex_number(8.0, 9.0), listOfNumbers,1)
+    add_complex_number_to_list(create_complex_number(10.0, 11.0), listOfNumbers,2)
+    add_complex_number_to_list(create_complex_number(10.0, 11.0), listOfNumbers,3)
+    add_complex_number_to_list(create_complex_number(10.0, 11.0), listOfNumbers,4)
+    add_complex_number_to_list(create_complex_number(12.0, 13.0), listOfNumbers,5)
+    add_complex_number_to_list(create_complex_number(14.0, 15.0), listOfNumbers,6)
+    add_complex_number_to_list(create_complex_number(16.0, 10.0), listOfNumbers,7)
+    add_complex_number_to_list(create_complex_number(2.0, 3.0), listOfNumbers,8)
+    add_complex_number_to_list(create_complex_number(0.0, 0.0), listOfNumbers,9)
+            
+def menu():
+    print("Welcome! You have successfully started the application.Here are your options. Press: \n 1 To read a complex number \n 2 To display all complex numbers you've read \n 3 To observe the longest sequence that consists of numbers with a strictly increasing real part \n 4 To observe the longest sequence that contains at most 3 distinct numbers \n 0 To exit the application")
+    commands = {"2":user_print_list,"3":user_print_sequence_one,"4":user_print_sequence_two}
+    test_first_sequence()
+    test_second_sequence()
+    listOfNumbers = {}
+    createStartList(listOfNumbers)
+    index = 10
+    while True:
+        print("What's the task?")
+        task = input()
+        if task in commands:
+            commands[task](listOfNumbers)
+        elif task =="1":
+            user_read_complex_number(listOfNumbers, index)
+            index+=1
+        elif task == "0":
+            print("The program is now closed.")
+            return
+        else: 
+            print("Task not recognized!Here are your options. Press: \n 1 To read a complex number \n 2 To display all complex numbers you've read \n 3 To observe the longest sequence that consists of numbers with a strictly increasing real part \n 4 To observe the longest sequence that contains at most 3 distinct numbers \n 0 To exit the application")
+            continue
+menu()
