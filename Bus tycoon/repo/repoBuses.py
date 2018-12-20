@@ -14,3 +14,8 @@ class BusesRepository(object):
         
     def getAll(self):
         return self.__buses[:]
+
+    def getBusWithID(self,busID):
+        for bus in self.__buses: 
+            if bus.getID() == busID: 
+                return bus

@@ -44,11 +44,8 @@ class AppController(object):
         '''
         totalDistance = 0
         searchedBus = None
-        buses = self.__repoBuses.getAll()
-        for bus in buses: 
-            if bus.getID() == busID:
-                searchedBus = bus
-                route = self.__repoRoutes.getRouteByCode(bus.getRouteCode())
-                lengthOfRoute = route.getLength()
-                totalDistance += lengthOfRoute * bus.getTimesUsed()
+        searchedBus = self.__repoBuses.getBusWithID(busID)
+        route = self.__repoRoutes.getRouteByCode(searchedBus.getRouteCode())
+        lengthOfRoute = route.getLength()
+        totalDistance += lengthOfRoute * searchedBus.getTimesUsed()
         return (totalDistance,searchedBus)
