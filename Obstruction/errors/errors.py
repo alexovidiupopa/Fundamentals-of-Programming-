@@ -1,0 +1,4 @@
+class BoardError(Exception):
+    pass
+
+
