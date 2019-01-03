@@ -2,8 +2,8 @@ class Dimension(object):
     
     
     def __init__(self, boardX, boardY):
-        self.boardX = boardX
-        self.boardY = boardY
+        self.__boardX = boardX
+        self.__boardY = boardY
 
     def getBoardX(self):
         return self.__boardX

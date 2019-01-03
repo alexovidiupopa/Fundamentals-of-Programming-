@@ -46,9 +46,10 @@ class Board(object):
         return emptySq[:]
     
     def copy(self):
-        board = Board()
+        board = Board(0,0)
         board._board = copy.deepcopy(self._board)
         return board
     
     def move(self,dimension,symbol):
-        pass
+        ds = {'X':1,'O':2}
+        self._board[dimension.getBoardY()][dimension.getBoardX()] = ds[symbol]

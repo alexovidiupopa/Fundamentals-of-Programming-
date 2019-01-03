@@ -14,11 +14,42 @@ class Game(object):
         return self.__board
     
     def moveHuman(self,move):
-        self.__moveValidator.validateCoordinates(move,self.__board)
+        self.__moveValidator.validateCoordinates(move.getBoardX(),move.getBoardY(),self.__board)
         self.__board.move(move,'X')
     
     def moveComputer(self):
-        pass 
-
-
+        emptySquares = self.__board.emptySquares()
+        
+        '''
+        Try to win
+        '''
+        for square in emptySquares:
+            '''
+            -board copy 
+            -try moves 
+            -check for win
+            '''
+            board = self.__board.copy()
+            board.move(square,'O')
+            if board.isWon() == True: 
+                self.__board.move(square,'O')
+                return 
+        '''
+        Prevent human win
+        '''
+        for square in emptySquares: 
+            '''
+            -board copy
+            -try move for X
+            -check for win
+            '''
+            board = self.__board.copy()
+            board.move(square,'X')
+            if board.isWon() == True: 
+                self.__board.move(square,'O')
+                return 
+        '''
+        Move on a random square selected from the empty ones
+        '''
+        self.__board.move(choice(emptySquares),'O')
 

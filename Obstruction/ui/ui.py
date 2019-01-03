@@ -7,12 +7,13 @@ class UserInterface(object):
     
     def __init__(self, game):
         self.__game = game
+        self.__moveValidator = boardValidator()
     
     def __readMove(self):
         while True: 
             try: 
                 coordinates = input().split(' ')
-                boardValidator.validateCoordinates(int(coordinates[0]),int(coordinates[1]))
+                self.__moveValidator.validateCoordinates(int(coordinates[0]),int(coordinates[1]),self.__game.getBoard())
                 return Dimension(int(coordinates[0]),int(coordinates[1]))
             except BoardError as be: 
                 print(be)
