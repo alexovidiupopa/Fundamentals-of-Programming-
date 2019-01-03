@@ -52,4 +52,11 @@ class Board(object):
     
     def move(self,dimension,symbol):
         ds = {'X':1,'O':2}
-        self._board[dimension.getBoardY()][dimension.getBoardX()] = ds[symbol]
+        coordX = dimension.getBoardX()
+        coordY = dimension.getBoardY()
+        self._board[coordY][coordX] = ds[symbol]
+        forI = [-1,-1,-1,0,1,1,1,0]
+        forJ = [-1,0,1,1,1,0,-1,-1]
+        for i in range(0,8):
+            if coordY + forI[i] >=0 and coordY + forI[i]<self.__height and  coordX + forJ[i] >=0 and coordX + forJ[i]<self.__width:
+                self._board[coordY+forI[i]][coordX+forJ[i]] = 3

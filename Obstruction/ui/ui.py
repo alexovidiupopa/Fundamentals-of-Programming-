@@ -1,6 +1,6 @@
 from models.dimension import Dimension
 from validators import boardValidator
-from errors.errors import BoardError
+from errors.errors import BoardError, CoordError
 
 class UserInterface(object):
 
@@ -15,8 +15,12 @@ class UserInterface(object):
                 coordinates = input().split(' ')
                 self.__moveValidator.validateCoordinates(int(coordinates[0]),int(coordinates[1]),self.__game.getBoard())
                 return Dimension(int(coordinates[0]),int(coordinates[1]))
+            except ValueError: 
+                print("Invalid format! Must be two integers with a space between them!")
             except BoardError as be: 
                 print(be)
+            except CoordError as ce:
+                print(ce)
                 
     def start(self):
         board = self.__game.getBoard()
