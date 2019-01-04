@@ -1,6 +1,7 @@
 class Dimension(object):
-    
-    
+    '''
+    class for the dimension/square entity
+    '''
     def __init__(self, boardX, boardY):
         self.__boardX = boardX
         self.__boardY = boardY

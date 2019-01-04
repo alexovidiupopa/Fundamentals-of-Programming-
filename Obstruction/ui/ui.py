@@ -1,5 +1,4 @@
 from models.dimension import Dimension
-from validators import boardValidator
 from errors.errors import BoardError, CoordError
 
 class UserInterface(object):
@@ -7,32 +6,39 @@ class UserInterface(object):
     
     def __init__(self, game):
         self.__game = game
-        self.__moveValidator = boardValidator()
     
     def __readMove(self):
         while True: 
             try: 
+                print("Input the move you want to make. Format must be x <space> y !!")
                 coordinates = input().split(' ')
-                self.__moveValidator.validateCoordinates(int(coordinates[0]),int(coordinates[1]),self.__game.getBoard())
                 return Dimension(int(coordinates[0]),int(coordinates[1]))
             except ValueError: 
                 print("Invalid format! Must be two integers with a space between them!")
-            except BoardError as be: 
-                print(be)
-            except CoordError as ce:
-                print(ce)
-                
     def start(self):
+        print("Let's play! Human starts!")
         board = self.__game.getBoard()
         human = True
-        while board.isWon() == False: 
+        print(board)
+        while not board.isWon(): 
             if human: 
-                print(board)
                 move = self.__readMove()
-                self.__game.moveHuman(move)
+                try:
+                    self.__game.moveHuman(move)
+                    human = False
+                    print("Human moved. Board now is:")
+                    print(board)
+                    print("-"*50)
+                except BoardError as be: 
+                    print(be)
+                except CoordError as ce:
+                    print(ce)
             else: 
                 self.__game.moveComputer()
-            human = not human
+                human = True
+                print("Computer moved. Board now is:")
+                print(board)
+                print("-"*50)
         print("Game over!")
         print(board)
         if human == True: 

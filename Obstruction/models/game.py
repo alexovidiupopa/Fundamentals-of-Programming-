@@ -14,6 +14,11 @@ class Game(object):
         return self.__board
     
     def moveHuman(self,move):
+        '''
+        class method that handles a human move
+        first, the move is validated and then it is made. 
+        in case the move is invalid, the error is raised up until the UI, where it is handled, and the move will not be made.
+        '''
         self.__moveValidator.validateCoordinates(move.getBoardX(),move.getBoardY(),self.__board)
         self.__board.move(move,'X')
     

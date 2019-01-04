@@ -12,7 +12,7 @@ class boardValidator(object):
         if boardX<0 or boardX>=board.getWidth() or boardY<0 or boardY>=board.getHeight():
             errors+="Coordinates must be between 0 and width/height - 1."
         board = board._board
-        if board[boardY][boardX]!=0: 
+        if board[boardX][boardY]!=0: 
             errors+="Square already taken!"
         if errors!="": 
             raise CoordError("Coordinates error!"+errors)
