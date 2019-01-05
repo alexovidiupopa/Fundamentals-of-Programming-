@@ -17,6 +17,9 @@ class Dimension(object):
     def __str__(self):
         return str(self.boardX) + "  " + str(self.boardY)
     
+    def __eq__(self,toCheck):
+        return self.__boardX == toCheck.getBoardX() and self.__boardY == toCheck.getBoardY()
+    
     boardX = property(getBoardX, None, None, None)
     boardY = property(getBoardY, None, None, None)
 

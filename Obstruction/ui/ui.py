@@ -10,7 +10,8 @@ class UserInterface(object):
     def __readMove(self):
         while True: 
             try: 
-                print("Input the move you want to make. Format must be x <space> y !!")
+                print("Input the move you want to make! Format must be x <space> y !!")
+                print(">>>")
                 coordinates = input().split(' ')
                 return Dimension(int(coordinates[0]),int(coordinates[1]))
             except ValueError: 

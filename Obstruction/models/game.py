@@ -1,14 +1,13 @@
 from random import choice
-from validators import boardValidator
 
 class Game(object):
 
     '''
     Class for the game entity
     '''
-    def __init__(self, board):
+    def __init__(self, board, BoardValidator):
         self.__board = board
-        self.__moveValidator = boardValidator()
+        self.__moveValidator = BoardValidator
         
     def getBoard(self):
         return self.__board
@@ -57,4 +56,3 @@ class Game(object):
         Move on a random square selected from the empty ones
         '''
         self.__board.move(choice(emptySquares),'O')
-

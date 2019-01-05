@@ -1,5 +1,4 @@
 from errors.errors import BoardError, CoordError
-import unittest
 
 class boardValidator(object):
     
@@ -11,19 +10,11 @@ class boardValidator(object):
         errors = ""
         if boardX<0 or boardX>=board.getWidth() or boardY<0 or boardY>=board.getHeight():
             errors+="Coordinates must be between 0 and width/height - 1."
-        board = board._board
-        if board[boardX][boardY]!=0: 
+        if errors!="":
+            raise CoordError("Coordinates error!"+errors)
+        #board = board._board
+        if board._board[boardX][boardY]!=0: 
             errors+="Square already taken!"
         if errors!="": 
             raise CoordError("Coordinates error!"+errors)
     
-class testValidators(unittest.TestCase):
-    
-    def setUp(self):
-        self.__boardValidator = boardValidator()
-        
-    def testBoardValidator(self):
-        x1 = -2
-        y1 = -1
-        self.assertRaises(BoardError,self.__boardValidator.validate,x1,y1)
-        

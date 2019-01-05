@@ -96,3 +96,5 @@ class Board(object):
         for i in range(0,8):
             if coordX + forI[i] >=0 and coordX + forI[i]<self.__height and  coordY + forJ[i] >=0 and coordY + forJ[i]<self.__width:
                 self._board[coordX+forI[i]][coordY+forJ[i]] = 3
+                
+                
