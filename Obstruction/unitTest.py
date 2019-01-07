@@ -7,6 +7,9 @@ from errors.errors import CoordError,BoardError
 import unittest
 
 class boardTests(unittest.TestCase):
+    '''
+    Tests for the board
+    '''
     
     def setUp(self):
         self.__board = Board(5,5)
@@ -42,6 +45,9 @@ class boardTests(unittest.TestCase):
         
 
 class gameTests(unittest.TestCase):
+    '''
+    Tests for the game
+    '''
     def setUp(self):
         self.__game = Game(Board(5,5),boardValidator())
         
@@ -64,7 +70,9 @@ class gameTests(unittest.TestCase):
         self.assertGreaterEqual(len(board.emptySquares()),16)
         
 class testValidators(unittest.TestCase):
-    
+    '''
+    Tests for the validators
+    '''
     def setUp(self):
         self.__boardValidator = boardValidator()
         self.__board = Board(4,4)

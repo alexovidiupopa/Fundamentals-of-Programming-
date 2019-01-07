@@ -29,10 +29,10 @@ class Board(object):
         '''
         table = Texttable()
         data = {0:" ",1:"X",2:"0",3:"#"}
-        for i in range(self.__height):
+        for rowIndex in range(self.__height):
             list = []
-            for j in range(self.__width):
-                list.append(data[self._board[i][j]])
+            for columnIndex in range(self.__width):
+                list.append(data[self._board[rowIndex][columnIndex]])
             table.add_row(list)
         return table.draw()
     
@@ -42,9 +42,9 @@ class Board(object):
         in: - 
         out:-
         '''
-        for i in range(self.__height): 
+        for rowIndex in range(self.__height): 
             row = []
-            for j in range(self.__width): 
+            for columnIndex in range(self.__width): 
                 row.append(0)
             self._board.append(row)
 
@@ -63,10 +63,10 @@ class Board(object):
         in : - 
         '''
         emptySq = []
-        for i in range(self.__height):
-            for j in range(self.__width): 
-                if self._board[i][j] == 0:
-                    emptySq.append(Dimension(i,j))
+        for rowIndex in range(self.__height):
+            for columnIndex in range(self.__width): 
+                if self._board[rowIndex][columnIndex] == 0:
+                    emptySq.append(Dimension(rowIndex,columnIndex))
         return emptySq
     
     def copy(self):
@@ -93,8 +93,8 @@ class Board(object):
         self._board[coordX][coordY] = symbolsData[symbol]
         forI = [-1,-1,-1,0,1,1,1,0]
         forJ = [-1,0,1,1,1,0,-1,-1]
-        for i in range(0,8):
-            if coordX + forI[i] >=0 and coordX + forI[i]<self.__height and  coordY + forJ[i] >=0 and coordY + forJ[i]<self.__width:
-                self._board[coordX+forI[i]][coordY+forJ[i]] = 3
+        for index in range(0,8):
+            if coordX + forI[index] >=0 and coordX + forI[index]<self.__height and  coordY + forJ[index] >=0 and coordY + forJ[index]<self.__width:
+                self._board[coordX+forI[index]][coordY+forJ[index]] = 3
                 
                 

@@ -25,34 +25,31 @@ class Game(object):
         emptySquares = self.__board.emptySquares()
         
         '''
-        Try to win
+        Try to win. Steps: 
+        -copy the board 
+        -try each possible move in emptySquares
+        -check if the board is won after the move
         '''
-        for square in emptySquares:
-            '''
-            -board copy 
-            -try moves 
-            -check for win
-            '''
+        for square in emptySquares:    
             board = self.__board.copy()
             board.move(square,'O')
             if board.isWon() == True: 
                 self.__board.move(square,'O')
                 return 
         '''
-        Prevent human win
+        Prevent the human from winning. Steps: 
+        -copy the board 
+        -try each possible move for X 
+        -check if the board is won after the move
         '''
         for square in emptySquares: 
-            '''
-            -board copy
-            -try move for X
-            -check for win
-            '''
             board = self.__board.copy()
             board.move(square,'X')
             if board.isWon() == True: 
                 self.__board.move(square,'O')
                 return 
         '''
-        Move on a random square selected from the empty ones
+        If we're here, that means that the previous strategies didn't work, so:
+        The computer will move on a random square selected from the empty ones
         '''
         self.__board.move(choice(emptySquares),'O')
