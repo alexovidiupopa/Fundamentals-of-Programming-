@@ -1,0 +1,4 @@
+class Recursive(object):
+    pass
+
+
