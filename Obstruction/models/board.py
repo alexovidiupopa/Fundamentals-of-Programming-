@@ -28,9 +28,13 @@ class Board(object):
         here, the texttable library will be used.
         '''
         table = Texttable()
+        header = [' ']
+        for index in range(self.__width):
+            header.append(str(index))
+        table.header(header)
         data = {0:" ",1:"X",2:"0",3:"#"}
         for rowIndex in range(self.__height):
-            list = []
+            list = [rowIndex]
             for columnIndex in range(self.__width):
                 list.append(data[self._board[rowIndex][columnIndex]])
             table.add_row(list)
@@ -91,10 +95,10 @@ class Board(object):
         coordX = dimension.getBoardX()
         coordY = dimension.getBoardY()
         self._board[coordX][coordY] = symbolsData[symbol]
-        forI = [-1,-1,-1,0,1,1,1,0]
-        forJ = [-1,0,1,1,1,0,-1,-1]
+        forRowIndex = [-1,-1,-1,0,1,1,1,0]
+        forColumnIndex = [-1,0,1,1,1,0,-1,-1]
         for index in range(0,8):
-            if coordX + forI[index] >=0 and coordX + forI[index]<self.__height and  coordY + forJ[index] >=0 and coordY + forJ[index]<self.__width:
-                self._board[coordX+forI[index]][coordY+forJ[index]] = 3
+            if coordX + forRowIndex[index] >=0 and coordX + forRowIndex[index]<self.__height and  coordY + forColumnIndex[index] >=0 and coordY + forColumnIndex[index]<self.__width:
+                self._board[coordX+forRowIndex[index]][coordY+forColumnIndex[index]] = 3
                 
                 

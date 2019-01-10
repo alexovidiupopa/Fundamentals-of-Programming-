@@ -16,6 +16,8 @@ class UserInterface(object):
                 return Dimension(int(coordinates[0]),int(coordinates[1]))
             except ValueError: 
                 print("Invalid format! Must be two integers with a space between them!")
+            except IndexError: 
+                print("Invalid format! Must be two integers with a space between them!")
     def start(self):
         print("Let's play! Human starts!")
         board = self.__game.getBoard()

@@ -15,9 +15,15 @@ class Dimension(object):
 
     
     def __str__(self):
+        '''
+        overwrites the print() method for the board coordinates
+        '''
         return str(self.boardX) + "  " + str(self.boardY)
     
     def __eq__(self,toCheck):
+        '''
+        overwrites the == operator, to check if two board coordinates are equal
+        '''
         return self.__boardX == toCheck.getBoardX() and self.__boardY == toCheck.getBoardY()
     
     boardX = property(getBoardX, None, None, None)

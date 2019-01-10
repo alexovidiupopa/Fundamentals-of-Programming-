@@ -17,9 +17,9 @@ class boardTests(unittest.TestCase):
     def testInitialize(self):
         width = self.__board.getWidth()
         height = self.__board.getHeight()
-        for i in range(height):
-            for j in range(width):
-                self.assertEqual(self.__board._board[i][j],0)
+        for index1 in range(height):
+            for index2 in range(width):
+                self.assertEqual(self.__board._board[index1][index2],0)
     def testGetters(self):
         self.assertEqual(self.__board.getWidth(),5)
         self.assertEqual(self.__board.getHeight(),5)
